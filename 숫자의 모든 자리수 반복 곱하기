@@ -1,0 +1,43 @@
+/*숫자의 모든 자리수 반복 곱하기*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases;
+
+    cin >> numTestCases;
+
+    for(int i =0; i<numTestCases; i++)
+    {
+        unsigned int numData;
+        int numlen =0, num;
+        cin >> numData;
+        
+        while(numlen!=1)
+        {
+            int result = 1;
+            
+            while(numData > 0)
+            {   
+                num=numData%10;
+                if(num!=0)
+                    result*=num;
+                numData/=10;
+            }
+            
+            numData = result;
+            numlen =0;
+            
+            while(result>0)
+            {
+                result/=10;
+                numlen++;
+            }
+        }
+        cout << numData << endl;
+    }
+    return 0;
+}
