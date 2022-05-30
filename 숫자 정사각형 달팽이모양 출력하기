@@ -1,0 +1,60 @@
+/*숫자정사각형달팽이모양출력하기*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases;
+
+    cin >> numTestCases;
+
+    for(int i =0; i<numTestCases; i++)
+    {   
+        int t, a, b;
+        cin >> t >> a >> b;
+        int min = 0, max =t-1;
+        int squareArray[t][t];
+        int resultArray[t*t];
+        
+        for(int i = 0; i < t; i++)
+        {
+            for(int j =0; j < t; j++)
+                squareArray[i][j]=(i*t)+(j+1);
+        }
+        int count=0;
+        while(min!=max && min < max)
+        {
+            for(int i =min ; i <= max; i++)
+            {
+                resultArray[count]=squareArray[min][i];
+                count++;
+            }
+            for(int i = min+1 ; i <= max; i++)
+            {
+                resultArray[count]=squareArray[i][max];
+                count++;
+            }
+            for(int i =max-1 ; i >= min; i--)
+            {
+                resultArray[count]=squareArray[max][i];
+                count++;
+            }
+            for(int i =max-1 ; i > min; i--)
+            {
+                resultArray[count]=squareArray[i][min];
+                count++;
+            }
+            min++; max--;
+        }
+        resultArray[count]=squareArray[min][min];
+        
+        for(int i = a-1; i <= b-1; i++)
+        {
+            cout << resultArray[i] << ' ';
+        }
+        cout << endl;
+    }
+    return 0;
+}
