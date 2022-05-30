@@ -1,0 +1,34 @@
+/*주가분석-1*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases, numlen, first, mid, last, count;
+
+    cin >> numTestCases;
+
+    for(int i =0; i <numTestCases; i++)
+    {
+        cin >> numlen;
+        count = 0;
+        cin >> first;
+        cin >> mid;
+        
+        for(int i = 2; i < numlen; i++)
+        {
+            cin >> last;
+            if(first < mid && mid > last)
+                count++;
+            if (mid !=last)
+            {
+                first = mid;
+                mid = last;
+            }
+        }
+        cout << count << endl;
+    }
+    return 0;
+}
