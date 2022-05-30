@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int angleClock(int h, int m);
+
+int main(void)
+{
+int t;
+int h, m;
+    cin >> t;
+    for(int i=0; i<t; i++)
+{
+        cin >> h >> m;
+        cout << angleClock( h, m ) << endl;
+    }
+    return 0;
+}
+
+int angleClock(int h, int m)
+{
+    float hHand, mHand, angle;
+    hHand = h*30 + m*0.5;
+    mHand = m*6;
+    
+    if(hHand > mHand)
+        angle = hHand - mHand;
+    else
+        angle = mHand - hHand;
+    
+    if(angle > 180)
+        angle = 360-angle;
+    return (int)angle;
+}
