@@ -1,0 +1,54 @@
+/*정사각형출력-3*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases, min, max, middle;
+
+    cin >> numTestCases;
+
+    for(int i =0; i <numTestCases; i++)
+    {
+        cin >> max;
+        char str[max][max]; min = 0; middle = (max-1)/2;
+        for(int i =0; i < max ; i++)
+        {
+            for(int j =0; j < max; j++)
+            {
+                str[i][j]={'.'};
+                if(i==min || i==max-1 || i==middle)
+                {
+                    if(j==min || j==max-1 || j==middle)
+                        str[i][j]={'+'};
+                    else
+                        str[i][j]={'-'};
+                }
+                else
+                {
+                    if(j==min || j==max-1 || j==middle)
+                        str[i][j]={'|'};
+                    if(j!=min && j!=max-1 && j!=middle)
+                    {
+                        if((i==j) && ((i<middle && j<middle) || ( i>middle && j>middle)))
+                            str[i][j]={'\\'};
+                        else
+                            if(i+j==max-1)
+                                str[i][j]={'/'};
+                    }
+                }
+                if(i==middle && j==middle)
+                    str[i][j]={'*'};
+            }
+        }
+        for(int i =0; i < max ; i++)
+        {
+            for(int j =0; j < max; j++)
+                cout << str[i][j];
+            cout << endl;
+        }
+    }
+    return 0;
+}
