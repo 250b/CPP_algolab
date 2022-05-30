@@ -1,0 +1,68 @@
+/*숫자정사각형출력하기*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases;
+
+    cin >> numTestCases;
+
+    for(int i =0; i<numTestCases; i++)
+    {   
+        int num;
+        cin >> num;
+        int squareArray[num][num];
+        
+        for(int i = 0; i < num; i++)
+            for(int j = 0; j < num; j ++)
+                squareArray[i][j]=0;
+        
+        if((num-1)%4==0)
+        {
+            int min = 0, max = num-1;
+            while(min != max)
+            {
+                min++; max--;
+                
+                for(int i = min; i <= max; i++)
+                    for(int j = min; j <= max; j ++)
+                        squareArray[i][j]=1;
+                
+                min++; max--;
+                
+                for(int i = min; i <=  max; i++)
+                    for(int j = min; j <= max; j ++)
+                        squareArray[i][j]=0;
+            }
+        }
+        
+        else
+        {
+            int min = -1, max = num;
+            while(min != max)
+            {
+                min++; max--;
+                
+                for(int i = min; i <=  max; i++)
+                    for(int j = min; j <= max; j ++)
+                        squareArray[i][j]=1;
+                
+                min++; max--;
+                
+                for(int i = min; i <=  max; i++)
+                    for(int j = min; j <= max; j ++)
+                        squareArray[i][j]=0;
+            }
+        }
+        for(int i = 0; i < num; i++)
+        {
+            for(int j = 0; j < num; j ++)
+                {cout << squareArray[i][j];}
+        cout << endl;
+        }
+    }
+    return 0;
+}
