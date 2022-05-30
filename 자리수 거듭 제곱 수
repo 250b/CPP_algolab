@@ -1,0 +1,43 @@
+/*자리수거듭제곱수*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases;
+
+    cin >> numTestCases;
+
+    for(int i =0; i<numTestCases; i++)
+    {
+        int numData, numlen =0;
+        cin >> numData;
+        int numDataForCount = numData;    
+        int numDataForCom = numData;
+        
+    
+        while(numDataForCount)
+        {
+            numDataForCount /= 10;
+            numlen++;
+        }
+
+        int result=0, num;
+        
+        for(int i = 0; i < numlen; i++)
+        {
+            num = numData%10;
+            result += (int)pow(num, numlen);
+            numData = numData /10;
+        }
+        
+        if(result==numDataForCom)
+            cout << 1 << endl;
+        else
+            cout << 0 << endl;
+    }
+    return 0;
+}
