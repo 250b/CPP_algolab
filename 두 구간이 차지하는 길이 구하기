@@ -1,0 +1,50 @@
+/*두구간이차지하는길이구하기*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases, left, right, overlap, sum;
+
+    cin >> numTestCases;
+
+    for(int i =0; i <numTestCases; i++)
+    {
+        int a,b,c,d;
+        cin >> a>>b>>c>>d; 
+        
+        if(a <= c)
+            left = c;
+        else
+            left = a;
+        
+        if(b <= d)
+            right = b;
+        else
+            right = d;
+        
+        if (right-left > 0)
+            overlap = right-left;
+        else
+            overlap = 0;
+        
+        if(overlap ==0)
+            sum = (b-a) + (d-c);
+        else
+        {
+            if(left == c)
+                left=a;
+            else
+                left=c;
+            if(right ==b)
+                right=d;
+            else
+                right =b;
+            sum=right-left;
+        }
+        cout << overlap << ' '<< sum<<endl;
+    }
+    return 0;
+}
