@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int testcaseNum;
+    cin >> testcaseNum;
+
+    for(int i= 0; i < testcaseNum; i++)
+    {
+        int row, rowcol,  col;
+        cin >> row>> rowcol>> col;
+
+        int array1[row][rowcol];
+        int array2[rowcol][col];
+        int resultArray[row][col];
+
+        for(int i=0; i < row; i++)
+            for(int k=0; k < rowcol; k++)
+                cin >> array1[i][k];
+        
+        for(int i=0; i < rowcol; i++)
+            for(int k=0; k < col; k++)
+                cin >> array2[i][k];
+
+        for(int i=0; i <row; i++ )
+        {
+            for(int j=0; j<col; j++)
+            {
+                int sum=0;
+                for(int k=0; k < rowcol; k++)
+                    sum += (array1[i][k] * array2[k][j]);
+                resultArray[i][j] = sum;
+            }
+        }
+
+        for(int i=0 ; i<row; i++)
+        {
+            for(int k=0; k<col ; k++)
+                cout << resultArray[i][k] <<" ";
+            cout << endl;
+        }
+    }
+
+    return 0;
+}
