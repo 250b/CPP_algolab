@@ -1,0 +1,62 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ifstream ifs;
+    
+    ifs.open("input.txt");
+    
+    int testcaseNum;
+    cin >> testcaseNum;
+    
+    for(int i=0; i < testcaseNum; i++)
+    {
+        int size;
+        cin >> size;
+        
+
+        int row =0;
+        int col = size/2;
+        int array[size][size];
+    
+        for(int i=0; i<size; i++)
+        {
+            for(int k=0; k<size; k++)
+                array[i][k]=0;
+        }
+        array[0][size/2]=1;
+        
+        for(int i=2; i<=size*size; i++)
+        {
+            int newrow=row-1;
+            int newcol=col+1;
+            
+            if(newrow <0)
+                newrow+=size;
+
+            if(newcol > size-1)
+                newcol-=size;
+        
+                
+            if(array[newrow][newcol]!=0)
+            {
+                newrow = row+1;
+                newcol = col;
+                array[newrow][newcol]=i;
+            }
+            else
+                array[newrow][newcol]=i;
+                
+            row = newrow;
+            col = newcol;
+        }
+        for(int i=0; i<size; i++)
+        {
+            for(int k=0; k<size; k++)
+                cout << array[i][k]<<" ";
+            cout << endl;
+        }
+    }
+}
