@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+#include <ctype.h>
+
+using namespace std;
+
+void check(string num)
+{
+    int count=0;
+    int list[100];
+    
+    while(num.size()>1)
+    {
+        int size = num.size();
+        int last = num[size-1]-48;
+        num = num.substr(0,size-1);
+        size = num.size();
+        list[count]=last;
+        count++;
+        int result[size];
+        int mainnum[size];
+        for(int i=0; i<size; i++)
+        {
+            mainnum[i]=num[i]-48;
+        }
+        int obj[size]={0};
+        obj[size-1]=last;
+
+        
+        for(int i=size-1; i>-1; i--)
+        {
+            int num1=mainnum[i];
+            int num2 =obj[i];
+            
+            int sub = num1-num2;
+            if(sub<0)
+            {
+                result[i]=sub+10;
+                mainnum[i-1]=mainnum[i-1]-1;
+            }
+            else
+                result[i]=sub;
+        }
+        
+
+        int start=0;
+        for(int i=0; i<size; i++)
+        {
+            if(result[i]==0)
+                start++;
+            else
+                break;
+        }
+        string middle="";
+        for(int i=start; i<size; i++)
+        {    
+            middle+= result[i]+48;
+        }
+
+        num=middle;
+    }
+    
+    
+    if(num=="")
+    {
+        for(int i=count-1; i>-1; i--)
+            cout << list[i];
+    }
+    else
+        cout << 0;
+    cout << endl;
+}
+
+int main()
+{
+    int casenum;
+    cin >> casenum;
+    for(int i=0; i < casenum; i++)
+    {
+        string num;
+        cin >> num;
+        check(num);
+    }
+
+    return 0;
+}
