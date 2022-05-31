@@ -1,0 +1,58 @@
+/*두사각형면적둘레구하기*/
+/*국민대학교 소프트웨어융합대학 소프트웨어학부 2학년 20213038 이보현*/
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    int numTestCases, a1, b1, c1, d1, a2, b2, c2, d2;
+
+    cin >> numTestCases;
+
+    for(int i =0; i <numTestCases; i++)
+    {
+        cin >> a1>> b1 >> c1 >> d1;
+        cin >> a2>> b2 >> c2 >> d2;
+        
+        int left, right, width_overlap, length_overlap;
+        if(a1 < a2)
+            left = a2;
+        else
+            left = a1;
+        if (c1 < c2)
+            right = c1;
+        else 
+            right = c2;
+        width_overlap = right - left;
+        
+        
+        int top, bottom;
+            
+        if(b1 < b2)
+            bottom = b2;
+        else
+            bottom = b1;
+        if (d1 < d2)
+            top = d1;
+        else 
+            top = d2;
+            
+        length_overlap = top -bottom;
+        
+        int wide, length;
+        wide = (c1-a1) * (d1- b1) + (c2-a2)*(d2- b2);
+        length = (c1-a1)*2 + (d1- b1)*2 + (c2-a2)*2 + (d2- b2)*2;
+        
+        if(width_overlap>0)
+        {
+            if (length_overlap>0)
+            {
+                wide = wide - length_overlap*width_overlap;
+                length  = length - (length_overlap+width_overlap)*2;
+            }
+        }    
+        cout << wide <<' ' <<length << endl;
+    }
+    return 0;
+}
