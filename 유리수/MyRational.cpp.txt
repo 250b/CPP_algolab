@@ -1,0 +1,313 @@
+#include "MyRational.h"
+#include <iostream>
+using namespace std;
+
+// Constructor
+myRational::myRational(long num, long den)
+{
+  _num = num;
+  _den = den;
+  reduce();
+}
+// Copy constructor
+myRational::myRational(const myRational &rat)
+{
+  _num = rat.getNumerator();
+  _den = rat.getDenominator();
+}
+// Accessor functions
+long myRational::getNumerator() const
+{
+  return _num;
+}
+long myRational::getDenominator() const
+{
+  return _den;
+}
+myRational myRational::reciprocal() const
+{
+  return myRational(_den,_num);
+}
+// Overloaded Operators
+myRational myRational::operator +(const myRational& rat) const
+{
+  long newnum = _num*rat.getDenominator() + _den*rat.getNumerator();
+  long newden = _den * rat.getDenominator();
+  return myRational(newnum, newden);
+}
+myRational myRational::operator -(const myRational& rat) const
+{
+  long newnum = _num*rat.getDenominator() - _den*rat.getNumerator();
+  long newden = _den * rat.getDenominator();
+  return myRational(newnum, newden);
+}
+myRational myRational::operator *(const myRational& rat) const
+{
+  long newnum = _num * rat.getNumerator();
+  long newden = _den *rat.getDenominator();
+  return myRational(newnum, newden);
+}
+myRational myRational::operator /(const myRational& rat) const
+{
+  if(rat.getNumerator()==0)
+    return myRational(0);
+  else
+  {
+    long newnum = _num * rat.getDenominator();
+    long newden = _den * rat.getNumerator();
+    return myRational(newnum, newden);
+  }
+}
+
+myRational myRational::operator +(int value) const
+{
+  long newnum = _num+(_den * value);
+  return myRational(newnum, _den);
+}
+myRational myRational::operator -(int value) const
+{
+  long newnum = _num-(_den * value);
+  return myRational(newnum, _den);
+}
+myRational myRational::operator *(int value) const
+{
+  return myRational(_num*value, _den);
+}
+myRational myRational::operator /(int value) const
+{
+  if(value==0)
+    return myRational(0);
+  else
+    return myRational(_num, _den * value);
+}
+
+myRational operator +(int value, const myRational& rat)
+{
+  long newnum = value*rat.getDenominator() + rat.getNumerator();
+  return myRational(newnum, rat.getDenominator());
+}
+myRational operator -(int value, const myRational& rat)
+{
+  long newnum = value*rat.getDenominator() - rat.getNumerator();
+  return myRational(newnum, rat.getDenominator());
+}
+myRational operator *(int value, const myRational& rat)
+{
+  return myRational(rat.getNumerator()*value, rat.getDenominator());
+}
+myRational operator /(int value, const myRational& rat)
+{
+  if(rat.getNumerator()==0)
+    return myRational(0);
+  else
+    return myRational(value*rat.getDenominator(),rat.getNumerator());
+}
+
+//Prefix
+myRational& myRational::operator ++()
+{
+  _num = _num+_den;
+  return *this;
+}
+myRational& myRational::operator --()
+{
+  _num = _num-_den;
+  return *this;
+}
+//Postfix
+myRational myRational::operator ++(int)
+{
+  myRational tmp(*this);
+  _num = _num+_den;
+  return tmp;
+}
+myRational myRational::operator --(int)
+{
+  myRational tmp(*this);
+  _num = _num-_den;
+  return tmp;
+}
+
+// Unary
+myRational myRational::operator -()
+{
+    return myRational(-_num, _den);
+}
+//Comparison Operators
+bool myRational::operator ==(const myRational& rat) const
+{
+  return (_num==rat.getNumerator() & _den==rat.getDenominator());
+}
+bool myRational::operator !=(const myRational& rat) const
+{
+  return !((*this)==rat);
+}
+bool myRational::operator >(const myRational& rat) const
+{
+  return _num*rat.getDenominator()>_den*rat.getNumerator();
+}
+bool myRational::operator >=(const myRational& rat) const
+{
+  return _num*rat.getDenominator()>=_den*rat.getNumerator();
+}
+bool myRational::operator <(const myRational& rat) const
+{
+  return _num*rat.getDenominator()<_den*rat.getNumerator();
+}
+bool myRational::operator <=(const myRational& rat) const
+{
+  return _num*rat.getDenominator()<=_den*rat.getNumerator();
+}
+
+bool myRational::operator ==(int value) const
+{
+  return (_num==(_den*value));
+}
+bool myRational::operator !=(int value) const
+{
+    return !((*this)==value);
+}
+bool myRational::operator >(int value) const
+{
+  return (_num>(_den*value));
+}
+bool myRational::operator >=(int value) const
+{
+  return (_num>=(_den*value));
+}
+bool myRational::operator <(int value) const
+{
+  return (_num<(_den*value));
+}
+bool myRational::operator <=(int value) const
+{
+  return (_num<=(_den*value));
+}
+//Assignment Operators
+myRational& myRational::operator =(const myRational& rat)
+{
+  _num = rat.getNumerator();
+  _den = rat.getDenominator();
+  return *this;
+}
+myRational& myRational::operator =(int value)
+{
+  _num=value;
+  _den = 1;
+  reduce();
+  return *this;
+}
+myRational& myRational::operator +=(const myRational& rat)
+{
+  _num =_num*rat.getDenominator() + _den*rat.getNumerator();
+  _den = _den * rat.getDenominator();
+  reduce();
+  return *this;
+}
+myRational& myRational::operator +=(int value)
+{
+  _num = _num +_den * value;
+  return *this;
+  reduce();
+}
+myRational& myRational::operator -=(const myRational& rat)
+{
+  _num =_num*rat.getDenominator() -_den*rat.getNumerator();
+  _den = _den * rat.getDenominator();
+  reduce();
+  return *this;
+}
+myRational& myRational::operator -=(int value)
+{
+  _num = _num -_den * value;
+  reduce();
+  return *this;
+}
+myRational& myRational::operator *=(const myRational& rat)
+{
+  _num = _num*rat.getNumerator();
+  _den = _den * rat.getDenominator();
+  reduce();
+  return *this;
+}
+myRational& myRational::operator *=(int value)
+{
+  _num = _num * value;
+  reduce();
+  return *this;
+}
+myRational& myRational::operator /=(const myRational& rat)
+{
+  if(rat.getNumerator()==0)
+    _num=0;
+  else
+  {
+    _num = _num * rat.getDenominator();
+    _den = _den * rat.getNumerator();
+  }
+  reduce();
+  return *this;
+}
+myRational& myRational::operator /=(int value)
+{
+  if(value==0)
+    _num=0;
+  else
+    _den = _den* value;
+    reduce();
+  return *this;
+}
+
+ostream &operator <<(ostream &outStream, const myRational& r)
+{
+  if (r.getNumerator() == 0)
+    outStream << 0;
+  else if (r.getDenominator() == 1)
+    outStream << r.getNumerator();
+  else
+    outStream << r.getNumerator() << "/" << r.getDenominator();
+  return outStream;
+}
+
+istream &operator >>(istream &inStream, myRational& r)
+{
+  inStream >> r._num >> r._den;
+  if (r.getDenominator() == 0)
+    {
+      r._num = 0;
+      r._den = 1;
+    }
+    r.reduce();
+    return inStream;
+}
+
+long myRational::gcd(long m, long n)
+{
+  if (m == n)
+    return n;
+  else if (m < n)
+    return gcd(m, n-m);
+  else
+    return gcd(m-n, n);
+}
+
+void myRational::reduce()
+{
+  if (_num == 0 || _den == 0)
+  {
+    _num = 0;
+    _den = 1;
+    return;
+  }
+  if (_den < 0)
+  {
+    _den *= -1;
+    _num *= -1;
+  }
+  if (_num == 1)
+    return;
+    int sgn = (_num < 0 ? -1 : 1);
+    long g = gcd(sgn * _num, _den);
+    _num /= g;
+    _den /= g;
+}
